@@ -3,7 +3,6 @@ package hotfix.sample;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
-import android.support.multidex.MultiDex;
 import android.util.Log;
 
 import com.dx168.patchsdk.FullUpdateHandler;
@@ -36,8 +35,6 @@ public class DefaultAppLike extends SampleApplicationLike {
     @Override
     public void onBaseContextAttached(Context base) {
         super.onBaseContextAttached(base);
-        MultiDex.install(base);
-        TinkerInstaller.install(this);
         System.out.println("init my application.............................");
     }
 

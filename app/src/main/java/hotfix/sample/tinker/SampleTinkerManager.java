@@ -67,7 +67,6 @@ public class SampleTinkerManager {
         isInstalled = true;
 
     }
-
     /**
      * you can specify all class you want.
      * sometimes, you can only install com.dx168.patchsdk.sample in some process you want!
