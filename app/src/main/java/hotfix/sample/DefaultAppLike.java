@@ -3,7 +3,6 @@ package hotfix.sample;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
-import android.support.multidex.MultiDex;
 import android.util.Log;
 
 import com.dx168.patchsdk.FullUpdateHandler;
@@ -12,10 +11,11 @@ import com.dx168.patchsdk.Listener;
 import com.dx168.patchsdk.PatchManager;
 import com.tencent.tinker.anno.DefaultLifeCycle;
 import com.tencent.tinker.lib.tinker.TinkerInstaller;
-import com.tencent.tinker.loader.app.DefaultApplicationLike;
 import com.tencent.tinker.loader.shareutil.ShareConstants;
 
-import hotfix.sample.utils.Utils;
+import hotfix.app.SampleApplicationLike;
+import hotfix.util.Utils;
+
 
 /**
  * Created by dongyuangui on 2017/8/28.
@@ -26,7 +26,7 @@ import hotfix.sample.utils.Utils;
         loaderClass = "com.tencent.tinker.loader.TinkerLoader",   //loaderClassName, 我们这里使用默认
         loadVerifyFlag = false)
 
-public class DefaultAppLike extends DefaultApplicationLike {
+public class DefaultAppLike extends SampleApplicationLike {
     private static final String TAG = "DefaultAppLike";
 
     public DefaultAppLike(Application application, int tinkerFlags, boolean tinkerLoadVerifyFlag, long applicationStartElapsedTime, long applicationStartMillisTime, Intent tinkerResultIntent) {
@@ -35,8 +35,6 @@ public class DefaultAppLike extends DefaultApplicationLike {
 
     @Override
     public void onBaseContextAttached(Context base) {
-        MultiDex.install(base);
-        TinkerInstaller.install(this);
         super.onBaseContextAttached(base);
         System.out.println("init my application.............................");
     }
@@ -92,7 +90,6 @@ public class DefaultAppLike extends DefaultApplicationLike {
             @Override
             public void onLoadSuccess() {
                 Log.d(TAG, "onLoadSuccess");
-                PatchManager.getInstance().onLoadSuccess();
             }
 
             @Override
