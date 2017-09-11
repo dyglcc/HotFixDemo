@@ -13,7 +13,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="base 1.3.2" />
+        android:text="base 1.3.3" />
 
     <Button
         android:id="@+id/toastInfo"

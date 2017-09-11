@@ -12,9 +12,9 @@ import com.dx168.patchsdk.Listener;
 import com.dx168.patchsdk.PatchManager;
 import com.tencent.tinker.anno.DefaultLifeCycle;
 import com.tencent.tinker.lib.tinker.TinkerInstaller;
-import com.tencent.tinker.loader.app.DefaultApplicationLike;
 import com.tencent.tinker.loader.shareutil.ShareConstants;
 
+import hotfix.sample.tinker.SampleApplicationLike;
 import hotfix.sample.utils.Utils;
 
 /**
@@ -26,7 +26,7 @@ import hotfix.sample.utils.Utils;
         loaderClass = "com.tencent.tinker.loader.TinkerLoader",   //loaderClassName, 我们这里使用默认
         loadVerifyFlag = false)
 
-public class DefaultAppLike extends DefaultApplicationLike {
+public class DefaultAppLike extends SampleApplicationLike {
     private static final String TAG = "DefaultAppLike";
 
     public DefaultAppLike(Application application, int tinkerFlags, boolean tinkerLoadVerifyFlag, long applicationStartElapsedTime, long applicationStartMillisTime, Intent tinkerResultIntent) {
