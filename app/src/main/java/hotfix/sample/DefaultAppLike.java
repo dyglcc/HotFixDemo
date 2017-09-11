@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.support.multidex.MultiDex;
 import android.util.Log;
 
+import com.dx168.patchsdk.FullUpdateHandler;
 import com.dx168.patchsdk.IPatchManager;
 import com.dx168.patchsdk.Listener;
 import com.dx168.patchsdk.PatchManager;
@@ -13,6 +14,8 @@ import com.tencent.tinker.anno.DefaultLifeCycle;
 import com.tencent.tinker.lib.tinker.TinkerInstaller;
 import com.tencent.tinker.loader.app.DefaultApplicationLike;
 import com.tencent.tinker.loader.shareutil.ShareConstants;
+
+import hotfix.sample.utils.Utils;
 
 /**
  * Created by dongyuangui on 2017/8/28.
@@ -41,26 +44,25 @@ public class DefaultAppLike extends DefaultApplicationLike {
     @Override
     public void onCreate() {
         super.onCreate();
-        String appId = "20170830214446915-2943";
-        String appSecret = "11e8a09a99ba4c0ba3d04141b390b7af";
-        PatchManager.getInstance().init(getApplication(), "http://www.gradlechina.cn:8080/hotfix-apis/",
+        String appId = "20170907163813557-7443";
+        String appSecret = "a94728234232444db6f65b6d18971536";
+        PatchManager.getInstance().init(getApplication(), "http://192.168.3.16:8080/hotfix-apis/",
                 appId, appSecret, new IPatchManager() {
-            @Override
-            public void patch(Context context, String path) {
-                TinkerInstaller.onReceiveUpgradePatch(context, path);
-            }
+                    @Override
+                    public void patch(Context context, String path) {
+                        TinkerInstaller.onReceiveUpgradePatch(context, path);
+                    }
 
-            @Override
-            public void cleanPatch(Context context) {
-                TinkerInstaller.cleanPatch(context);
-            }
-        });
+                    @Override
+                    public void cleanPatch(Context context) {
+                        TinkerInstaller.cleanPatch(context);
+                    }
+                });
         PatchManager.getInstance().register(new Listener() {
             @Override
             public void onQuerySuccess(String response) {
                 Log.d(TAG, "onQuerySuccess response=" + response);
             }
-
             @Override
             public void onQueryFailure(Throwable e) {
                 Log.d(TAG, "onQueryFailure e=" + e);
@@ -96,7 +98,10 @@ public class DefaultAppLike extends DefaultApplicationLike {
                 Log.d(TAG, "onLoadFailure");
             }
         });
-        PatchManager.getInstance().setTag("your tag");
+//        PatchManager.getInstance().setTag("your tag");
+        String channel = Utils.getApplicationMetaData("HOTFIX_CHANNEL", getApplication());
+        PatchManager.getInstance().setChannel(channel);
+        PatchManager.getInstance().setFullUpdateHandler(new FullUpdateHandler());
         PatchManager.getInstance().queryAndPatch();
     }
 }
