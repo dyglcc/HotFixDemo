@@ -3,6 +3,7 @@ package hotfix.sample;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
+import android.support.multidex.MultiDex;
 import android.util.Log;
 
 import com.dx168.patchsdk.FullUpdateHandler;
@@ -11,9 +12,9 @@ import com.dx168.patchsdk.Listener;
 import com.dx168.patchsdk.PatchManager;
 import com.tencent.tinker.anno.DefaultLifeCycle;
 import com.tencent.tinker.lib.tinker.TinkerInstaller;
+import com.tencent.tinker.loader.app.DefaultApplicationLike;
 import com.tencent.tinker.loader.shareutil.ShareConstants;
 
-import hotfix.sample.tinker.SampleApplicationLike;
 import hotfix.sample.utils.Utils;
 
 /**
@@ -25,7 +26,7 @@ import hotfix.sample.utils.Utils;
         loaderClass = "com.tencent.tinker.loader.TinkerLoader",   //loaderClassName, 我们这里使用默认
         loadVerifyFlag = false)
 
-public class DefaultAppLike extends SampleApplicationLike {
+public class DefaultAppLike extends DefaultApplicationLike {
     private static final String TAG = "DefaultAppLike";
 
     public DefaultAppLike(Application application, int tinkerFlags, boolean tinkerLoadVerifyFlag, long applicationStartElapsedTime, long applicationStartMillisTime, Intent tinkerResultIntent) {
@@ -34,6 +35,8 @@ public class DefaultAppLike extends SampleApplicationLike {
 
     @Override
     public void onBaseContextAttached(Context base) {
+        MultiDex.install(base);
+        TinkerInstaller.install(this);
         super.onBaseContextAttached(base);
         System.out.println("init my application.............................");
     }
@@ -60,6 +63,7 @@ public class DefaultAppLike extends SampleApplicationLike {
             public void onQuerySuccess(String response) {
                 Log.d(TAG, "onQuerySuccess response=" + response);
             }
+
             @Override
             public void onQueryFailure(Throwable e) {
                 Log.d(TAG, "onQueryFailure e=" + e);
@@ -88,6 +92,7 @@ public class DefaultAppLike extends SampleApplicationLike {
             @Override
             public void onLoadSuccess() {
                 Log.d(TAG, "onLoadSuccess");
+                PatchManager.getInstance().onLoadSuccess();
             }
 
             @Override
