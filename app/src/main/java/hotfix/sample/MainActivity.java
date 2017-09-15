@@ -3,6 +3,7 @@ package hotfix.sample;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -11,7 +12,7 @@ import com.tencent.tinker.lib.tinker.Tinker;
 import com.tencent.tinker.lib.tinker.TinkerInstaller;
 
 import hotfix.reporter.SampleTinkerReport;
-import testtinker.com.jinniu.modao.test.R;
+import hotfix.sample.com.R;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
                 Tinker.with(getApplicationContext()).cleanPatch();
             }
         });
+        Log.d("MainActivity", "patchsdk.TinkerManager");
         Button loadPatchButton = (Button) findViewById(R.id.loadPatch);
         loadPatchButton.setOnClickListener(new View.OnClickListener() {
             @Override

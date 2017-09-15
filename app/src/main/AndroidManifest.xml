@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="testtinker.com.jinniu.modao.test">
+    package="hotfix.sample.com">
 
     <application
         android:name=".BaseApplication"
@@ -16,11 +16,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!--hotfix-setting-->
+        <service
+            android:name="hotfix.service.SampleResultServiceSaveSp"
+            android:exported="false" />
+        <meta-data
+            android:name="HOTFIX_CHANNEL"
+            android:value="all" />
+        hotfix-setting
     </application>
-    <!--<meta-data-->
-        <!--android:name="RELEASE_CHANNEL"-->
-        <!--android:value="${RELEASE_CHANNEL_VALUE}" />-->
+    <!--hotfix-permission-->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"></uses-permission>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
 
 </manifest>

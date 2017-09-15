@@ -16,7 +16,8 @@
 
 package hotfix.app;
 
-import testtinker.com.jinniu.modao.test.BuildConfig;
+
+import hotfix.sample.com.BuildConfig;
 
 /**
  * Created by zhangshaowen on 16/6/30.

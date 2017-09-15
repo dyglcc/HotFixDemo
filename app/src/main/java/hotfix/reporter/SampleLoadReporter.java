@@ -19,6 +19,7 @@ package hotfix.reporter;
 import android.content.Context;
 import android.os.Looper;
 import android.os.MessageQueue;
+import android.util.Log;
 
 import com.dx168.patchsdk.PatchManager;
 import com.tencent.tinker.lib.reporter.DefaultLoadReporter;
@@ -33,7 +34,7 @@ import java.io.File;
  * Created by zhangshaowen on 16/4/13.
  */
 public class SampleLoadReporter extends DefaultLoadReporter {
-    private final static String TAG = "Tinker.SampleLoadReporter";
+    private final static String TAG = "SampleLoadReporter";
 
     public SampleLoadReporter(Context context) {
         super(context);
@@ -51,6 +52,7 @@ public class SampleLoadReporter extends DefaultLoadReporter {
         switch (loadCode) {
             case ShareConstants.ERROR_LOAD_OK:
                 PatchManager.getInstance().onLoadSuccess();
+                Log.d(TAG, "patchDirectory " + patchDirectory);
                 SampleTinkerReport.onLoaded(cost);
                 break;
         }

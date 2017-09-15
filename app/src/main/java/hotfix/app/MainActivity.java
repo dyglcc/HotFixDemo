@@ -36,8 +36,8 @@ import com.tencent.tinker.lib.tinker.TinkerInstaller;
 import com.tencent.tinker.loader.shareutil.ShareConstants;
 import com.tencent.tinker.loader.shareutil.ShareTinkerInternals;
 
+import hotfix.sample.com.R;
 import hotfix.util.Utils;
-import testtinker.com.jinniu.modao.test.R;
 
 
 public class MainActivity extends AppCompatActivity {
