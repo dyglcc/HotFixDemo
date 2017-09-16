@@ -22,8 +22,15 @@
             android:exported="false" />
         <meta-data
             android:name="HOTFIX_CHANNEL"
-            android:value="all" />
-        hotfix-setting
+            android:value="${CHANNEL}" />
+        
+        <receiver android:name="com.dx168.patchsdk.DebugReceiver">
+            <intent-filter>
+                <action android:name="com.dx168.patchsdk.DebugReceiver.PATCH" />
+                <action android:name="com.dx168.patchsdk.DebugReceiver.RESTART" />
+            </intent-filter>
+        </receiver>
+        <!--hotfix-setting-->
     </application>
     <!--hotfix-permission-->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"></uses-permission>

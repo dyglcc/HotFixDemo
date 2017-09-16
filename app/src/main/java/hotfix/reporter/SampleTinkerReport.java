@@ -17,8 +17,6 @@
 
 package hotfix.reporter;
 
-import android.util.Log;
-
 import com.tencent.tinker.lib.util.TinkerLog;
 import com.tencent.tinker.loader.shareutil.ShareConstants;
 import com.tencent.tinker.loader.shareutil.ShareTinkerInternals;
@@ -248,7 +246,6 @@ public class SampleTinkerReport {
     }
 
     public static void onLoaded(long cost) {
-        Log.d("llllll", "LLLLLLLLllllllllll");
         if (reporter == null) {
             return;
         }

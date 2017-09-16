@@ -32,7 +32,7 @@ ext {
     tinkerApplyResourcePath = "${bakPath}/app-debug-0915-11-08-41-R.txt"
 
     //only use for build all flavor, if not, just ignore this field
-    tinkerBuildFlavorDirectory = "${bakPath}/app-0901-13-46-02"
+    tinkerBuildFlavorDirectory = "${bakPath}/app-0915-15-58-39"
 }
 
 
@@ -301,15 +301,23 @@ if (buildWithTinker()) {
                 }
             }
         }
-
-        // modify dyg flavor TINKER_ID
-        if (variant.productFlavors[0]) {
-            def flavorName = variant.productFlavors[0].name
-
-            tinkerPatch.buildConfig.tinkerId = getTinkerId(flavorName);
-        }
-
     }
+
+    android.applicationVariants.all { variantChangeFlavors ->
+        def flavorName = variantChangeFlavors.productFlavors[0].name;
+        def typeName = variantChangeFlavors.buildType.name;
+        tasks.all {
+            if ("compile${flavorName}${typeName}JavaWithJavac".equalsIgnoreCase(it.name)) {
+                it.doFirst {// 需要替换自己的包路径「hotfix/sample/com」
+                    def loggerFilePath = "${buildDir}/generated/source/buildConfig/${flavorName}/${typeName}/hotfix/sample/com/BuildConfig.java"
+                    def updatedDebug = new File(loggerFilePath).getText('UTF-8')
+                            .replaceAll(flavorName, "保证不同渠道生成相同类文件已强制修改FLAVOR，请从meta-data获得渠道号")
+                    new File(loggerFilePath).write(updatedDebug, 'UTF-8')
+                }
+            }
+        }
+    }
+
     project.afterEvaluate {
         //sample use for build all flavor for one time
         if (hasFlavors) {

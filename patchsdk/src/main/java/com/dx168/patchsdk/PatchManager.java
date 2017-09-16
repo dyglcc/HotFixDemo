@@ -74,8 +74,6 @@ public final class PatchManager {
     private AppInfo appInfo;
     private IPatchManager actualManager;
     private FullUpdateHandler fullUpdateHandler = new FullUpdateHandler();
-    private String deviceId = null;
-    private String channel = null;
 
     public void init(Context context, String baseUrl, String appId, String appSecret, String deviceId, String channel) {
         this.context = context.getApplicationContext();
@@ -170,33 +168,6 @@ public final class PatchManager {
         }
         appInfo.setTag(tag);
     }
-
-//    public void setChannel(String channel) {
-//        if (context == null) {
-//            return;
-//            //throw new NullPointerException("PatchManager must be init before using");
-//        }
-//        if (!PatchUtils.isMainProcess(context)) {
-//            return;
-//        }
-//        appInfo.setChannel(channel);
-//    }
-
-
-    /*
-    * 设置deviceId
-    * */
-    public void setDeviceId(String deviceId) {
-        if (context == null) {
-            return;
-            //throw new NullPointerException("PatchManager must be init before using");
-        }
-        if (!PatchUtils.isMainProcess(context)) {
-            return;
-        }
-        appInfo.setDeviceId(deviceId);
-    }
-
     public void queryAndPatch() {
         if (context == null) {
             throw new NullPointerException("PatchManager must be init before using");

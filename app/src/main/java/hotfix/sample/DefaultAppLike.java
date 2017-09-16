@@ -40,7 +40,7 @@ public class DefaultAppLike extends SampleApplicationLike {
         super.onCreate();
         String appId = "20170907163813557-7443";
         String appSecret = "a94728234232444db6f65b6d18971536";
-        // 设置设备id，或者null，系统自动获取设备id
+        // 设置设备id，或者null
         String deviceId = "aabbcc";
         String channel = Utils.getApplicationMetaData("HOTFIX_CHANNEL", getApplication());
 
