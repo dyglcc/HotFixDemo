@@ -20,9 +20,9 @@
         <service
             android:name="com.dx168.patchsdk.service.SampleResultServiceSave"
             android:exported="false" />
-        <!--<meta-data-->
-            <!--android:name="HOTFIX_CHANNEL"-->
-            <!--android:value="${CHANNEL}" />-->
+        <meta-data
+            android:name="HOTFIX_CHANNEL"
+            android:value="${CHANNEL}" />
         
         <receiver android:name="com.dx168.patchsdk.DebugReceiver">
             <intent-filter>

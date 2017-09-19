@@ -56,14 +56,14 @@ android {
         }
     }
 
-//    productFlavors {
-//        yingyongbao {
-//            manifestPlaceholders = [CHANNEL: "yingyongbao"]
-//        }
-//        baidu {
-//            manifestPlaceholders = [CHANNEL: "baidu"]
-//        }
-//    }
+    productFlavors {
+        yingyongbao {
+            manifestPlaceholders = [CHANNEL: "yingyongbao"]
+        }
+        baidu {
+            manifestPlaceholders = [CHANNEL: "baidu"]
+        }
+    }
 
 }
 
