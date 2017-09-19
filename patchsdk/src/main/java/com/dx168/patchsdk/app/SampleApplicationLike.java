@@ -1,4 +1,4 @@
-package hotfix.app;
+package com.dx168.patchsdk.app;
 
 import android.annotation.TargetApi;
 import android.app.Application;
@@ -7,16 +7,15 @@ import android.content.Intent;
 import android.os.Build;
 import android.support.multidex.MultiDex;
 
+import com.dx168.patchsdk.Log.MyLogImp;
+import com.dx168.patchsdk.utils.SampleApplicationContext;
+import com.dx168.patchsdk.utils.TinkerManager;
 import com.tencent.tinker.anno.DefaultLifeCycle;
 import com.tencent.tinker.lib.tinker.Tinker;
 import com.tencent.tinker.lib.tinker.TinkerInstaller;
 import com.tencent.tinker.loader.app.ApplicationLifeCycle;
 import com.tencent.tinker.loader.app.DefaultApplicationLike;
 import com.tencent.tinker.loader.shareutil.ShareConstants;
-
-import hotfix.Log.MyLogImp;
-import hotfix.util.SampleApplicationContext;
-import hotfix.util.TinkerManager;
 
 
 /**

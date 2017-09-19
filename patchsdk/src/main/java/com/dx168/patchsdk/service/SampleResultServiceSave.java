@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package hotfix.service;
+package com.dx168.patchsdk.service;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -24,12 +24,12 @@ import android.os.Handler;
 import android.os.Looper;
 
 import com.dx168.patchsdk.PatchManager;
+import com.dx168.patchsdk.utils.Utils;
 import com.tencent.tinker.lib.service.DefaultTinkerResultService;
 import com.tencent.tinker.lib.service.PatchResult;
 import com.tencent.tinker.lib.util.TinkerLog;
 import com.tencent.tinker.lib.util.TinkerServiceInternals;
 
-import hotfix.util.Utils;
 
 /**
  * optional, you can just use DefaultTinkerResultService
@@ -37,7 +37,7 @@ import hotfix.util.Utils;
  * Created by zhangshaowen on 16/4/13.
  * Updated by jianjun.lin on 16/10/28.
  */
-public class SampleResultServiceSaveSp extends DefaultTinkerResultService {
+public class SampleResultServiceSave extends DefaultTinkerResultService {
     private static final String TAG = "Tinker.SampleResultService";
 
     @Override

@@ -15,7 +15,7 @@
  */
 
 
-package hotfix.util;
+package com.dx168.patchsdk.utils;
 import android.app.Application;
 import android.content.Context;
 

@@ -7,11 +7,11 @@ import android.util.Log;
 
 import com.dx168.patchsdk.Listener;
 import com.dx168.patchsdk.PatchManager;
+import com.dx168.patchsdk.app.SampleApplicationLike;
 import com.tencent.tinker.anno.DefaultLifeCycle;
 import com.tencent.tinker.loader.shareutil.ShareConstants;
 
-import hotfix.app.SampleApplicationLike;
-import hotfix.util.Utils;
+import hotfix.util.Util;
 
 
 /**
@@ -42,7 +42,7 @@ public class DefaultAppLike extends SampleApplicationLike {
         String appSecret = "a94728234232444db6f65b6d18971536";
         // 设置设备id，或者null
         String deviceId = "aabbcc";
-        String channel = Utils.getApplicationMetaData("HOTFIX_CHANNEL", getApplication());
+        String channel = Util.getApplicationMetaData("HOTFIX_CHANNEL", getApplication());
 
         PatchManager.getInstance().init(getApplication(), "http://192.168.3.16:8080/hotfix-apis/",
                 appId, appSecret, deviceId, channel);

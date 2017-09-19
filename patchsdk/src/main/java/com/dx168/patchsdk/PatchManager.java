@@ -168,6 +168,7 @@ public final class PatchManager {
         }
         appInfo.setTag(tag);
     }
+
     public void queryAndPatch() {
         if (context == null) {
             throw new NullPointerException("PatchManager must be init before using");
@@ -190,6 +191,8 @@ public final class PatchManager {
         }
         if (debugPatch != null) {
             SPUtils.put(context, KEY_STAGE, STAGE_PATCH);
+//            add by dyg
+            Encrypt.encrypt(debugPatch.getAbsolutePath());
             actualManager.patch(context, debugPatch.getAbsolutePath());
             for (Listener listener : listeners) {
                 listener.onQuerySuccess(debugPatch.getAbsolutePath());

@@ -14,21 +14,21 @@
  * limitations under the License.
  */
 
-package hotfix.crash;
+package com.dx168.patchsdk.crash;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.SystemClock;
 
+import com.dx168.patchsdk.reporter.SampleTinkerReport;
+import com.dx168.patchsdk.utils.TinkerManager;
+import com.dx168.patchsdk.utils.Utils;
 import com.tencent.tinker.lib.tinker.TinkerApplicationHelper;
 import com.tencent.tinker.lib.util.TinkerLog;
 import com.tencent.tinker.loader.app.ApplicationLike;
 import com.tencent.tinker.loader.shareutil.ShareConstants;
 import com.tencent.tinker.loader.shareutil.ShareTinkerInternals;
 
-import hotfix.reporter.SampleTinkerReport;
-import hotfix.util.TinkerManager;
-import hotfix.util.Utils;
 
 
 /**

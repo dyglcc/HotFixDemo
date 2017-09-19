@@ -38,7 +38,7 @@ android {
          * buildConfig can change during patch!
          * we can use the newly value when patch
          */
-        buildConfigField "String", "MESSAGE", "\"I am the base apk\""
+        buildConfigField "String", "MESSAGE", "\"hotfix apk\""
         /**
          * client version would update with patch
          * so we can get the newly git version easily!
@@ -56,14 +56,14 @@ android {
         }
     }
 
-    productFlavors {
-        yingyongbao {
-            manifestPlaceholders = [CHANNEL: "yingyongbao"]
-        }
-        baidu {
-            manifestPlaceholders = [CHANNEL: "baidu"]
-        }
-    }
+//    productFlavors {
+//        yingyongbao {
+//            manifestPlaceholders = [CHANNEL: "yingyongbao"]
+//        }
+//        baidu {
+//            manifestPlaceholders = [CHANNEL: "baidu"]
+//        }
+//    }
 
 }
 
@@ -90,14 +90,8 @@ dependencies {
     })
     compile 'com.android.support:appcompat-v7:25.1.0'
     testCompile 'junit:junit:4.12'
-    //optional, help to generate the final application
-    provided 'com.tencent.tinker:tinker-android-anno:1.8.1'
-    //tinker's main Android lib
-    compile 'com.tencent.tinker:tinker-android-lib:1.8.1'
-    //    compile 'com.dx168.patchsdk:patchsdk:1.2.2'
     compile project(':patchsdk')
 
-    compile "com.android.support:multidex:1.0.1"
 }
 
 apply from: "$projectDir/patch.gradle"

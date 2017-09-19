@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package hotfix.reporter;
+package com.dx168.patchsdk.reporter;
 
 import android.content.Context;
 import android.os.Looper;

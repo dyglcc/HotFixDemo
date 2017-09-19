@@ -14,8 +14,13 @@
  * limitations under the License.
  */
 
-package hotfix.util;
+package com.dx168.patchsdk.utils;
 
+import com.dx168.patchsdk.app.SamplePatchListener;
+import com.dx168.patchsdk.crash.SampleUncaughtExceptionHandler;
+import com.dx168.patchsdk.reporter.SampleLoadReporter;
+import com.dx168.patchsdk.reporter.SamplePatchReporter;
+import com.dx168.patchsdk.service.SampleResultServiceSave;
 import com.tencent.tinker.lib.listener.PatchListener;
 import com.tencent.tinker.lib.patch.AbstractPatch;
 import com.tencent.tinker.lib.patch.UpgradePatch;
@@ -26,11 +31,6 @@ import com.tencent.tinker.lib.util.TinkerLog;
 import com.tencent.tinker.lib.util.UpgradePatchRetry;
 import com.tencent.tinker.loader.app.ApplicationLike;
 
-import hotfix.crash.SampleUncaughtExceptionHandler;
-import hotfix.reporter.SampleLoadReporter;
-import hotfix.reporter.SamplePatchListener;
-import hotfix.reporter.SamplePatchReporter;
-import hotfix.service.SampleResultServiceSaveSp;
 
 
 /**
@@ -98,7 +98,7 @@ public class TinkerManager {
 
         TinkerInstaller.install(appLike,
                 loadReporter, patchReporter, patchListener,
-                SampleResultServiceSaveSp.class, upgradePatchProcessor);
+                SampleResultServiceSave.class, upgradePatchProcessor);
 
         isInstalled = true;
     }

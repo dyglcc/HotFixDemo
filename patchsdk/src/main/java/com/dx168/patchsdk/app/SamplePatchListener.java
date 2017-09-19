@@ -13,12 +13,15 @@
  * either express or implied. See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package hotfix.reporter;
+package com.dx168.patchsdk.app;
 
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.dx168.patchsdk.crash.SampleUncaughtExceptionHandler;
+import com.dx168.patchsdk.reporter.SampleTinkerReport;
+import com.dx168.patchsdk.utils.Utils;
 import com.tencent.tinker.lib.listener.DefaultPatchListener;
 import com.tencent.tinker.lib.util.TinkerLog;
 import com.tencent.tinker.loader.shareutil.ShareConstants;
@@ -27,10 +30,6 @@ import com.tencent.tinker.loader.shareutil.ShareTinkerInternals;
 
 import java.io.File;
 import java.util.Properties;
-
-import hotfix.app.BuildInfo;
-import hotfix.crash.SampleUncaughtExceptionHandler;
-import hotfix.util.Utils;
 
 
 /**
@@ -88,9 +87,10 @@ public class SamplePatchListener extends DefaultPatchListener {
                 String platform = properties.getProperty(Utils.PLATFORM);
                 TinkerLog.i(TAG, "get platform:" + platform);
                 // check patch platform require
-                if (platform == null || !platform.equals(BuildInfo.PLATFORM)) {
-                    returnCode = Utils.ERROR_PATCH_CONDITION_NOT_SATISFIED;
-                }
+                // modify by dyg
+//                if (platform == null || !platform.equals(BuildConfig.PLATFORM)) {
+//                    returnCode = Utils.ERROR_PATCH_CONDITION_NOT_SATISFIED;
+//                }
             }
         }
 

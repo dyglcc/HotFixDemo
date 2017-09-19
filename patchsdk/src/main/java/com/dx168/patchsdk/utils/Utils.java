@@ -14,16 +14,13 @@
  * limitations under the License.
  */
 
-package hotfix.util;
+package com.dx168.patchsdk.utils;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
 import android.os.Environment;
 import android.os.StatFs;
-import android.util.Log;
 
 import com.tencent.tinker.lib.util.TinkerLog;
 import com.tencent.tinker.loader.shareutil.ShareConstants;
@@ -187,16 +184,5 @@ public class Utils {
         }
     }
 
-    public static String getApplicationMetaData(String metadataName, Context context) {
 
-        ApplicationInfo appInfo = null;
-        try {
-            appInfo = context.getPackageManager()
-                    .getApplicationInfo(context.getPackageName(),
-                            PackageManager.GET_META_DATA);
-        } catch (PackageManager.NameNotFoundException e) {
-            Log.e(TAG, "getApplicationMetaData: null value exception");
-        }
-        return appInfo.metaData.getString(metadataName);
-    }
 }

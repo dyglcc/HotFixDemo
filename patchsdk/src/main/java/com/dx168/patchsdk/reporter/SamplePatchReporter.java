@@ -15,12 +15,11 @@
  */
 
 
-package hotfix.reporter;
+package com.dx168.patchsdk.reporter;
 
 import android.content.Context;
 import android.content.Intent;
 
-import com.dx168.patchsdk.PatchManager;
 import com.tencent.tinker.lib.reporter.DefaultPatchReporter;
 import com.tencent.tinker.loader.shareutil.SharePatchInfo;
 

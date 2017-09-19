@@ -25,14 +25,14 @@ ext {
 
     //for normal build
     //old apk file to build patch apk
-    tinkerOldApkPath = "${bakPath}/app-debug-0915-11-08-41.apk"
+    tinkerOldApkPath = "${bakPath}/app-debug-0918-18-34-00.apk"
     //proguard mapping file to build patch apk
-    tinkerApplyMappingPath = "${bakPath}/app-debug-0915-11-08-41-mapping.txt"
+    tinkerApplyMappingPath = "${bakPath}/app-debug-0918-18-34-00-mapping.txt"
     //resource R.txt to build patch apk, must input if there is resource changed
-    tinkerApplyResourcePath = "${bakPath}/app-debug-0915-11-08-41-R.txt"
+    tinkerApplyResourcePath = "${bakPath}/app-debug-0918-18-34-00-R.txt"
 
     //only use for build all flavor, if not, just ignore this field
-    tinkerBuildFlavorDirectory = "${bakPath}/app-0915-15-58-39"
+    tinkerBuildFlavorDirectory = "${bakPath}/app-0918-17-48-28"
 }
 
 
@@ -304,15 +304,17 @@ if (buildWithTinker()) {
     }
 
     android.applicationVariants.all { variantChangeFlavors ->
-        def flavorName = variantChangeFlavors.productFlavors[0].name;
-        def typeName = variantChangeFlavors.buildType.name;
-        tasks.all {
-            if ("compile${flavorName}${typeName}JavaWithJavac".equalsIgnoreCase(it.name)) {
-                it.doFirst {// 需要替换自己的包路径「hotfix/sample/com」
-                    def loggerFilePath = "${buildDir}/generated/source/buildConfig/${flavorName}/${typeName}/hotfix/sample/com/BuildConfig.java"
-                    def updatedDebug = new File(loggerFilePath).getText('UTF-8')
-                            .replaceAll(flavorName, "保证不同渠道生成相同类文件已强制修改FLAVOR，请从meta-data获得渠道号")
-                    new File(loggerFilePath).write(updatedDebug, 'UTF-8')
+        if (hasFlavors) {
+            def flavorName = variantChangeFlavors.productFlavors[0].name;
+            def typeName = variantChangeFlavors.buildType.name;
+            tasks.all {
+                if ("compile${flavorName}${typeName}JavaWithJavac".equalsIgnoreCase(it.name)) {
+                    it.doFirst {// 需要替换自己的包路径「hotfix/sample/com」
+                        def loggerFilePath = "${buildDir}/generated/source/buildConfig/${flavorName}/${typeName}/hotfix/sample/com/BuildConfig.java"
+                        def updatedDebug = new File(loggerFilePath).getText('UTF-8')
+                                .replaceAll(flavorName, "保证不同渠道生成相同类文件已强制修改FLAVOR，请从meta-data获得渠道号")
+                        new File(loggerFilePath).write(updatedDebug, 'UTF-8')
+                    }
                 }
             }
         }
