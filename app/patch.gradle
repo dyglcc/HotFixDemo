@@ -19,51 +19,51 @@ def bakPath = file("${projectDir}/bakApk/")
  */
 ext {
     //for some reason, you may want to ignore tinkerBuild, such as instant run debug build?
-    tinkerEnabled = true
+    hotfixEnabled = true
     //for normal build
     //old apk file to build patch apk
-    tinkerOldApkPath = "${bakPath}/app-debug-0918-18-34-00.apk"
+    hotfixOldApkPath = "${bakPath}/app-debug-0918-18-34-00.apk"
     //proguard mapping file to build patch apk
-    tinkerApplyMappingPath = "${bakPath}/app-debug-0918-18-34-00-mapping.txt"
+    hotfixApplyMappingPath = "${bakPath}/app-debug-0918-18-34-00-mapping.txt"
     //resource R.txt to build patch apk, must input if there is resource changed
-    tinkerApplyResourcePath = "${bakPath}/app-debug-0918-18-34-00-R.txt"
+    hotfixApplyResourcePath = "${bakPath}/app-debug-0918-18-34-00-R.txt"
     //only use for build all flavor, if not, just ignore this field
-    tinkerBuildFlavorDirectory = "${bakPath}/app-0919-23-59-17"
+    hotfixBuildFlavorDirectory = "${bakPath}/app-0921-12-36-57"
 }
 
 
 def getOldApkPath() {
-    return hasProperty("OLD_APK") ? OLD_APK : ext.tinkerOldApkPath
+    return hasProperty("OLD_APK") ? OLD_APK : ext.hotfixOldApkPath
 }
 
 def getApplyMappingPath() {
-    return hasProperty("APPLY_MAPPING") ? APPLY_MAPPING : ext.tinkerApplyMappingPath
+    return hasProperty("APPLY_MAPPING") ? APPLY_MAPPING : ext.hotfixApplyMappingPath
 }
 
 def getApplyResourceMappingPath() {
-    return hasProperty("APPLY_RESOURCE") ? APPLY_RESOURCE : ext.tinkerApplyResourcePath
+    return hasProperty("APPLY_RESOURCE") ? APPLY_RESOURCE : ext.hotfixApplyResourcePath
 }
 
-def getTinkerIdValue() {
-    return hasProperty("TINKER_ID") ? TINKER_ID : gitSha()
+def getHotfixIdValue() {
+    return hasProperty("HOTFIX_ID") ? HOTFIX_ID : gitSha()
 }
 
-def buildWithTinker() {
-    return hasProperty("TINKER_ENABLE") ? TINKER_ENABLE : ext.tinkerEnabled
+def buildWithHotfix() {
+    return hasProperty("HOTFIX_ENABLE") ? HOTFIX_ENABLE : ext.hotfixEnabled
 }
 
-def getTinkerBuildFlavorDirectory() {
-    return ext.tinkerBuildFlavorDirectory
+def getHotfixBuildFlavorDirectory() {
+    return ext.hotfixBuildFlavorDirectory
 }
 
-if (buildWithTinker()) {
+if (buildWithHotfix()) {
     apply plugin: 'com.jinniu.hotfixand.patch'
 
-    tinkerPatch {
+    hotfixPatch {
         /**
          * necessary，default 'null'
          * the old apk path, use to diff with the new apk to build
-         * add apk from the build/bakApk
+         * add apk from the ${bakApk}
          */
         oldApk = getOldApkPath()
         /**
@@ -95,7 +95,7 @@ if (buildWithTinker()) {
          * optional，default 'true'
          * whether use tinker to build
          */
-        tinkerEnable = buildWithTinker()
+        hotfixEnable = buildWithHotfix()
 
         /**
          * Warning, applyMapping will affect the normal android build!
@@ -122,7 +122,7 @@ if (buildWithTinker()) {
              * we can use git rev, svn rev or simply versionCode.
              * we will gen the tinkerId in your manifest automatic
              */
-            tinkerId = getTinkerIdValue()
+            hotfixId = getHotfixIdValue()
 
             /**
              * if keepDexApply is true, class in which dex refer to the old apk.
@@ -305,7 +305,8 @@ if (buildWithTinker()) {
             def typeName = variantChangeFlavors.buildType.name;
             tasks.all {
                 if ("compile${flavorName}${typeName}JavaWithJavac".equalsIgnoreCase(it.name)) {
-                    it.doFirst {// 需要替换自己的包路径「hotfix/sample/com」
+                    it.doFirst {
+                        // 需要替换自己的包路径「hotfix/sample/com」
                         def loggerFilePath = "${buildDir}/generated/source/buildConfig/${flavorName}/${typeName}/hotfix/sample/com/BuildConfig.java"
                         def updatedDebug = new File(loggerFilePath).getText('UTF-8')
                                 .replaceAll(flavorName, "保证不同渠道生成相同类文件已强制修改FLAVOR，请从meta-data获得渠道号")
@@ -319,36 +320,36 @@ if (buildWithTinker()) {
     project.afterEvaluate {
         //sample use for build all flavor for one time
         if (hasFlavors) {
-            task(tinkerPatchAllFlavorRelease) {
-                group = 'tinker'
-                def originOldPath = getTinkerBuildFlavorDirectory()
+            task(hotfixPatchAllFlavorRelease) {
+                group = 'hotfix'
+                def originOldPath = getHotfixBuildFlavorDirectory()
                 for (String flavor : flavors) {
-                    def tinkerTask = tasks.getByName("tinkerPatch${flavor.capitalize()}Release")
+                    def tinkerTask = tasks.getByName("hotfixPatch${flavor.capitalize()}Release")
                     dependsOn tinkerTask
                     def preAssembleTask = tasks.getByName("process${flavor.capitalize()}ReleaseManifest")
                     preAssembleTask.doFirst {
                         String flavorName = preAssembleTask.name.substring(7, 8).toLowerCase() + preAssembleTask.name.substring(8, preAssembleTask.name.length() - 15)
-                        project.tinkerPatch.oldApk = "${originOldPath}/${flavorName}/${project.name}-${flavorName}-release.apk"
-                        project.tinkerPatch.buildConfig.applyMapping = "${originOldPath}/${flavorName}/${project.name}-${flavorName}-release-mapping.txt"
-                        project.tinkerPatch.buildConfig.applyResourceMapping = "${originOldPath}/${flavorName}/${project.name}-${flavorName}-release-R.txt"
+                        project.hotfixPatch.oldApk = "${originOldPath}/${flavorName}/${project.name}-${flavorName}-release.apk"
+                        project.hotfixPatch.buildConfig.applyMapping = "${originOldPath}/${flavorName}/${project.name}-${flavorName}-release-mapping.txt"
+                        project.hotfixPatch.buildConfig.applyResourceMapping = "${originOldPath}/${flavorName}/${project.name}-${flavorName}-release-R.txt"
 
                     }
 
                 }
             }
 
-            task(tinkerPatchAllFlavorDebug) {
-                group = 'tinker'
-                def originOldPath = getTinkerBuildFlavorDirectory()
+            task(hotfixPatchAllFlavorDebug) {
+                group = 'hotfix'
+                def originOldPath = getHotfixBuildFlavorDirectory()
                 for (String flavor : flavors) {
-                    def tinkerTask = tasks.getByName("tinkerPatch${flavor.capitalize()}Debug")
+                    def tinkerTask = tasks.getByName("hotfixPatch${flavor.capitalize()}Debug")
                     dependsOn tinkerTask
                     def preAssembleTask = tasks.getByName("process${flavor.capitalize()}DebugManifest")
                     preAssembleTask.doFirst {
                         String flavorName = preAssembleTask.name.substring(7, 8).toLowerCase() + preAssembleTask.name.substring(8, preAssembleTask.name.length() - 13)
-                        project.tinkerPatch.oldApk = "${originOldPath}/${flavorName}/${project.name}-${flavorName}-debug.apk"
-                        project.tinkerPatch.buildConfig.applyMapping = "${originOldPath}/${flavorName}/${project.name}-${flavorName}-debug-mapping.txt"
-                        project.tinkerPatch.buildConfig.applyResourceMapping = "${originOldPath}/${flavorName}/${project.name}-${flavorName}-debug-R.txt"
+                        project.hotfixPatch.oldApk = "${originOldPath}/${flavorName}/${project.name}-${flavorName}-debug.apk"
+                        project.hotfixPatch.buildConfig.applyMapping = "${originOldPath}/${flavorName}/${project.name}-${flavorName}-debug-mapping.txt"
+                        project.hotfixPatch.buildConfig.applyResourceMapping = "${originOldPath}/${flavorName}/${project.name}-${flavorName}-debug-R.txt"
                     }
                 }
             }

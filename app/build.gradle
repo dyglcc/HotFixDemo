@@ -1,8 +1,12 @@
 apply plugin: 'com.android.application'
-
 ext {
     verName = '1.3.6'
     appName = "testHotfix"
+}
+repositories {
+    flatDir {
+        dirs 'libs' //this way we can find the .aar file in libs folder
+    }
 }
 
 def releaseTime() {
@@ -28,7 +32,6 @@ android {
         versionCode 1
         versionName project.ext.verName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
         //--------------------
         /**
          * you can use multiDex and install it in your ApplicationLifeCycle implement
@@ -43,7 +46,7 @@ android {
          * client version would update with patch
          * so we can get the newly git version easily!
          */
-        buildConfigField "String", "TINKER_ID", "\"${getTinkerIdValue()}\""
+        buildConfigField "String", "HOTFIX_ID", "\"${getHotfixIdValue()}\""
         buildConfigField "String", "PLATFORM", "\"all\""
 
 
@@ -79,8 +82,8 @@ def gitSha() {
     }
 }
 
-def getTinkerIdValue() {
-    return hasProperty("TINKER_ID") ? TINKER_ID : gitSha()
+def getHotfixIdValue() {
+    return hasProperty("HOTFIX_ID") ? HOTFIX_ID : gitSha()
 }
 
 dependencies {
@@ -90,7 +93,10 @@ dependencies {
     })
     compile 'com.android.support:appcompat-v7:25.1.0'
     testCompile 'junit:junit:4.12'
-    compile project(':patchsdk')
+//    compile project(':patchsdk')
+    compile(name: 'patchsdk-debug', ext: 'aar')
+    compile(name: 'tinker-android-lib-1.8.1', ext: 'aar')
+    compile(name: 'tinker-android-loader-1.8.1', ext: 'aar')
 
 }
 

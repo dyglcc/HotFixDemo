@@ -1,1 +1,1 @@
-include ':app', ':patchsdk'
+include ':app'
