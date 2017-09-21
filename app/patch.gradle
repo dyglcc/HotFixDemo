@@ -63,8 +63,7 @@ if (buildWithHotfix()) {
         /**
          * necessary，default 'null'
          * the old apk path, use to diff with the new apk to build
-         * add apk from the ${bakApk}
-         */
+         * add apk from the ${bakApk}*/
         oldApk = getOldApkPath()
         /**
          * optional，default 'false'
