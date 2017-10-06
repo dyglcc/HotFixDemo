@@ -7,7 +7,7 @@
   <version>1.8.1</version>
   <dependencies>
     <dependency>
-      <groupId>com.tencent.tinker</groupId>
+      <groupId>com.jinniu.hotfixand</groupId>
       <artifactId>tinker-commons</artifactId>
       <version>1.8.1</version>
       <scope>compile</scope>

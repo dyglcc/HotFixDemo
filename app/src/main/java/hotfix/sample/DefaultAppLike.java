@@ -44,7 +44,7 @@ public class DefaultAppLike extends SampleApplicationLike {
         String deviceId = "aabbcc";
         String channel = Util.getApplicationMetaData("HOTFIX_CHANNEL", getApplication());
 
-        PatchManager.getInstance().init(getApplication(), "http://192.168.3.16:8080/hotfix-apis/",
+        PatchManager.getInstance().init(getApplication(), "http://192.168.1.7:8080/hotfix-apis/",
                 appId, appSecret, deviceId, channel);
 //        PatchManager.getInstance().init(getApplication(), "http://192.168.3.16:8080/hotfix-apis/",
 //                appId, appSecret, null, null);
