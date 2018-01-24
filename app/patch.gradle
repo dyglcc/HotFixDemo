@@ -1,12 +1,23 @@
 def gitSha() {
+    // 使用git管理版本,请注释掉下面方法
+//    try {
+//        String gitRev = 'git rev-parse --short HEAD'.execute(null, project.rootDir).text.trim()
+//        if (gitRev == null) {
+//            throw new GradleException("can't get git rev, you should add git to system path or just input test value, such as 'testTinkerId'")
+//        }
+//        return gitRev
+//    } catch (Exception e) {
+//        throw new GradleException("can't get git rev, you should add git to system path or just input test value, such as 'testTinkerId'")
+//    }
+    // 使用svn管理版本，请注释掉上面方法
     try {
-        String gitRev = 'git rev-parse --short HEAD'.execute(null, project.rootDir).text.trim()
+        String gitRev = 'svnversion .'.execute(null, project.rootDir).text.trim()
         if (gitRev == null) {
-            throw new GradleException("can't get git rev, you should add git to system path or just input test value, such as 'testTinkerId'")
+            throw new GradleException("can't get svn rev, you should add git to system path or just input test value, such as 'testHotfixId'")
         }
         return gitRev
     } catch (Exception e) {
-        throw new GradleException("can't get git rev, you should add git to system path or just input test value, such as 'testTinkerId'")
+        throw new GradleException("can't get svn rev, you should add git to system path or just input test value, such as 'testHotfixId'")
     }
 }
 
