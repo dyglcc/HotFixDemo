@@ -10,15 +10,8 @@ def gitSha() {
 //        throw new GradleException("can't get git rev, you should add git to system path or just input test value, such as 'testTinkerId'")
 //    }
     // 使用svn管理版本，请注释掉上面方法
-    try {
-        String gitRev = 'svnversion .'.execute(null, project.rootDir).text.trim()
-        if (gitRev == null) {
-            throw new GradleException("can't get svn rev, you should add git to system path or just input test value, such as 'testHotfixId'")
-        }
-        return gitRev
-    } catch (Exception e) {
-        throw new GradleException("can't get svn rev, you should add git to system path or just input test value, such as 'testHotfixId'")
-    }
+//
+    return rootProject.ext.versionName+"_"+rootProject.ext.versionCode
 }
 
 def bakPath = file("${projectDir}/bakApk/")
