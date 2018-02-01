@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.view.View;
 
 import com.dx168.patchsdk.Listener;
 import com.dx168.patchsdk.PatchManager;
@@ -23,8 +24,9 @@ import hotfix.util.Util;
         loaderClass = "com.tencent.tinker.loader.TinkerLoader",   //loaderClassName, 我们这里使用默认
         loadVerifyFlag = false)
 
-public class DefaultAppLike extends SampleApplicationLike {
+public class DefaultAppLike extends SampleApplicationLike implements CallBack {
     private static final String TAG = "DefaultAppLike";
+    public static DefaultAppLike like = null;
 
     public DefaultAppLike(Application application, int tinkerFlags, boolean tinkerLoadVerifyFlag, long applicationStartElapsedTime, long applicationStartMillisTime, Intent tinkerResultIntent) {
         super(application, tinkerFlags, tinkerLoadVerifyFlag, applicationStartElapsedTime, applicationStartMillisTime, tinkerResultIntent);
@@ -44,7 +46,7 @@ public class DefaultAppLike extends SampleApplicationLike {
         String deviceId = "aabbcc";
         String channel = Util.getApplicationMetaData("HOTFIX_CHANNEL", getApplication());
 
-        PatchManager.getInstance().init(getApplication(), "http://192.168.1.215:8080/hotfix-apis/",
+        PatchManager.getInstance().init(getApplication(), "http://192.168.1.215:8090/hotfix-apis/",
                 appId, appSecret, deviceId, channel);
 //        PatchManager.getInstance().init(getApplication(), "http://192.168.3.16:8080/hotfix-apis/",
 //                appId, appSecret, null, null);
@@ -91,5 +93,12 @@ public class DefaultAppLike extends SampleApplicationLike {
             }
         });
         PatchManager.getInstance().queryAndPatch();
+        like = this;
+    }
+
+    @Override
+    public void onAction() {
+
+        Log.d(TAG, "onAction: aaaa");
     }
 }

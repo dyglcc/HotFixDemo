@@ -51,9 +51,9 @@ android {
         yingyongbao {
             manifestPlaceholders = [CHANNEL: "yingyongbao"]
         }
-        baidu {
-            manifestPlaceholders = [CHANNEL: "baidu"]
-        }
+//        baidu {
+//            manifestPlaceholders = [CHANNEL: "baidu"]
+//        }
     }
 
 }
